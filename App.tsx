@@ -1,20 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Connexion from './pages/Login';
+import Dossiers from './pages/Home';
+import Taches from './pages/Tasks';
 
-export default function App() {
+type RootStackParamList = {
+  Connexion: undefined;
+  Dossiers: undefined;
+  Taches: { dossierId: string; nomDossier: string };
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+export default function Appli() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Connexion">
+        <Stack.Screen name="Connexion" component={Connexion} />
+        <Stack.Screen name="Dossiers" component={Dossiers} />
+        <Stack.Screen name="Taches" component={Taches} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
